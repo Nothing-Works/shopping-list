@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="columns is-mobile is-centered">
@@ -25,10 +24,8 @@
                             <label for="email" class="label">E-Mail Address</label>
 
                             <div class="control">
-                                <input id="email" type="email" class="input{{ $errors->has('email') ? ' is-danger' : '' }}"
-                                    name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
+                                <input id="email" type="email" class="input{{ $errors->has('email') ? ' is-danger' : '' }}" name="email" value="{{ old('email') }}"
+                                    required> @if ($errors->has('email'))
                                 <p class="help is-danger" role="alert">{{ $errors->first('email') }}</p>
                                 @endif
                             </div>
