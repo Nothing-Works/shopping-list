@@ -2433,7 +2433,7 @@
       throw new TypeError('Promise resolver ' + resolver + ' is not a function');
     }
 
-    if (this instanceof Promise === false) {
+    if (this instanceof P === false) {
       throw new TypeError('Failed to construct \'Promise\': Please use the \'new\' operator, this object constructor cannot be called as a function.');
     }
 
@@ -3032,7 +3032,7 @@
     mark: noop$1,
     measure: noop$1
   };
-  var preamble = "FA \"5.7.0\"";
+  var preamble = "FA \"5.7.1\"";
 
   var begin = function begin(name) {
     p.mark("".concat(preamble, " ").concat(name, " begins"));
@@ -3840,9 +3840,13 @@
           hclAdd('complete');
           hclRemove('pending');
           if (typeof callback === 'function') callback();
+          mark();
           resolve();
         });
-      }).catch(reject).finally(mark);
+      }).catch(function () {
+        mark();
+        reject();
+      });
     });
   }
   function onNode(node) {
@@ -6040,6 +6044,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ItemNotification',
   props: {
@@ -6056,14 +6063,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    done: function done() {
+      console.log('clicked');
+    },
     toggle: function toggle() {
       var _this = this;
 
       axios.patch("/items/".concat(this.id), {
         completed: !this.completed
-      }).then(function (response) {
-        console.log(response);
-        _this.completed = !_this.completed;
+      }).then(function (_ref) {
+        var data = _ref.data;
+        _this.completed = data.completed;
       }).catch(function (error) {
         console.log(error);
       });
@@ -23728,10 +23738,21 @@ var render = function() {
     "div",
     {
       staticClass: "notification has-cursor-pointer",
-      class: [_vm.completed ? "is-success" : "is-danger"],
+      class: [_vm.completed ? "is-success" : ""],
       on: { click: _vm.toggle }
     },
-    [_vm._v("\n    " + _vm._s(_vm.body) + "\n")]
+    [
+      _c("button", {
+        staticClass: "delete is-large has-background-danger",
+        on: {
+          click: function($event) {
+            $event.stopPropagation()
+            return _vm.done($event)
+          }
+        }
+      }),
+      _vm._v("\n    " + _vm._s(_vm.body) + "\n")
+    ]
   )
 }
 var staticRenderFns = []

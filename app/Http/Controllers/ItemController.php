@@ -54,7 +54,9 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        return  $item->toggle($request->input('completed'));
+        $item->toggle($request->input('completed'));
+
+        return response($item->fresh(), 200);
     }
 
     /**
