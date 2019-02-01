@@ -14,17 +14,9 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items=Item::all();
-        return view('items.index',compact('items'));
-    }
+        $items = Item::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+        return view('items.index', compact('items'));
     }
 
     /**
@@ -36,17 +28,9 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-    }
+        Item::create([$request->validate(['body' => 'required|min:3'])]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Item $item
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Item $item)
-    {
+        return back();
     }
 
     /**

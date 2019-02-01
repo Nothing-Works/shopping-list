@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/items', 'ItemController@index');
+
+Route::post('/items', 'ItemController@store');
