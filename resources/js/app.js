@@ -23,6 +23,10 @@ Vue.component(
     'navigation-bar',
     require('./components/NavigationBar.vue').default
 )
+Vue.component(
+    'item-notification',
+    require('./components/ItemNotification.vue').default
+)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
