@@ -14,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = Item::orderBy('id', 'desc')->get();
 
         return view('items.index', compact('items'));
     }
@@ -28,7 +28,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        Item::create([$request->validate(['body' => 'required|min:3'])]);
+        Item::create($request->validate(['body' => ['required', 'min:3']]));
 
         return back();
     }
