@@ -26,10 +26,18 @@ export default {
     },
     methods: {
         toggle() {
-            this.completed = !this.completed
+            axios
+                .patch(`/items/${this.id}`, {
+                    completed: !this.completed
+                })
+                .then(response => {
+                    console.log(response)
+                    this.completed = !this.completed
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     }
 }
 </script>
-
-<style scoped></style>

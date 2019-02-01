@@ -54,6 +54,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
+        return  $item->toggle($request->input('completed'));
     }
 
     /**
@@ -65,6 +66,5 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-
     }
 }

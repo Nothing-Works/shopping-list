@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/items', 'ItemController@index');
 
 Route::post('/items', 'ItemController@store');
+
+Route::patch('/items/{item}', 'ItemController@update');
