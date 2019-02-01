@@ -6047,6 +6047,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ItemNotification',
   props: {
@@ -6059,21 +6062,38 @@ __webpack_require__.r(__webpack_exports__);
     return {
       body: this.item.body,
       completed: this.item.completed,
-      id: this.item.id
+      id: this.item.id,
+      deleted: false,
+      animate: false
     };
+  },
+  computed: {
+    classObject: function classObject() {
+      return {
+        'is-success': this.completed,
+        'animated jello': this.animate
+      };
+    }
   },
   methods: {
     done: function done() {
-      console.log('clicked');
-    },
-    toggle: function toggle() {
       var _this = this;
 
+      axios.delete("/items/".concat(this.id)).then(function (response) {
+        _this.deleted = response.data.deleted;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    toggle: function toggle() {
+      var _this2 = this;
+
+      this.animate = true;
       axios.patch("/items/".concat(this.id), {
         completed: !this.completed
-      }).then(function (_ref) {
-        var data = _ref.data;
-        _this.completed = data.completed;
+      }).then(function (response) {
+        _this2.completed = response.data.completed;
+        _this2.animate = false;
       }).catch(function (error) {
         console.log(error);
       });
@@ -23735,23 +23755,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    {
-      staticClass: "notification has-cursor-pointer",
-      class: [_vm.completed ? "is-success" : ""],
-      on: { click: _vm.toggle }
-    },
+    "transition",
+    { attrs: { "leave-active-class": "animated rollOut" } },
     [
-      _c("button", {
-        staticClass: "delete is-large has-background-danger",
-        on: {
-          click: function($event) {
-            $event.stopPropagation()
-            return _vm.done($event)
-          }
-        }
-      }),
-      _vm._v("\n    " + _vm._s(_vm.body) + "\n")
+      !_vm.deleted
+        ? _c(
+            "div",
+            {
+              staticClass: "notification has-cursor-pointer",
+              class: _vm.classObject,
+              on: { click: _vm.toggle }
+            },
+            [
+              _c("button", {
+                staticClass: "delete is-large has-background-danger",
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    return _vm.done($event)
+                  }
+                }
+              }),
+              _vm._v("\n        " + _vm._s(_vm.body) + "\n    ")
+            ]
+          )
+        : _vm._e()
     ]
   )
 }

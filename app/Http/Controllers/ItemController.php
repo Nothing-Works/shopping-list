@@ -50,13 +50,13 @@ class ItemController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Item                $item
      *
-     * @return \Illuminate\Http\Response
+     * @return Item|null
      */
     public function update(Request $request, Item $item)
     {
         $item->toggle($request->input('completed'));
 
-        return response($item->fresh(), 200);
+        return $item->fresh();
     }
 
     /**
@@ -65,8 +65,13 @@ class ItemController extends Controller
      * @param \App\Item $item
      *
      * @return \Illuminate\Http\Response
+     *
+     * @throws \Exception
      */
     public function destroy(Item $item)
     {
+        $deleted = $item->delete();
+
+        return compact('deleted');
     }
 }
