@@ -11,6 +11,7 @@
                 @click.stop="done"
             ></button>
             {{ body }}
+            <span class="tag is-warning">{{ place }}</span>
         </div>
     </transition>
 </template>
@@ -28,6 +29,7 @@ export default {
             body: this.item.body,
             completed: this.item.completed,
             id: this.item.id,
+            place: this.item.place.name,
             deleted: false,
             animate: false
         }

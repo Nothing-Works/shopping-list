@@ -6050,6 +6050,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ItemNotification',
   props: {
@@ -6063,6 +6064,7 @@ __webpack_require__.r(__webpack_exports__);
       body: this.item.body,
       completed: this.item.completed,
       id: this.item.id,
+      place: this.item.place.name,
       deleted: false,
       animate: false
     };
@@ -23776,7 +23778,10 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n        " + _vm._s(_vm.body) + "\n    ")
+              _vm._v("\n        " + _vm._s(_vm.body) + "\n        "),
+              _c("span", { staticClass: "tag is-warning" }, [
+                _vm._v(_vm._s(_vm.place))
+              ])
             ]
           )
         : _vm._e()
