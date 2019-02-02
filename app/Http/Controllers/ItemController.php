@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Place;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -14,9 +15,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('id', 'desc')->get();
+        $items = Item::with('place')->orderBy('id', 'desc')->get();
 
-        return view('items.index', compact('items'));
+        $places = Place::all();
+
+        return view('items.index', compact('items', 'places'));
     }
 
     /**
@@ -28,7 +31,10 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        Item::create($request->validate(['body' => ['required', 'min:3']]));
+        Item::create($request->validate([
+            'body' => ['required', 'min:3'],
+            'place_id' => 'required',
+        ]));
 
         return back();
     }

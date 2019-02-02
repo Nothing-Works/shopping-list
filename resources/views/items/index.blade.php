@@ -15,13 +15,13 @@
                             @csrf
                             <div class="field has-addons">
                                 <div class="control">
-                                    <span class="select">
-                                        <select aria-label="select">
-                                            <option>asdasd</option>
-                                            <option>£qweqew</option>
-                                            <option>zcxzxc€</option>
-                                      </select>
-                                    </span>
+                                    <div class="select">
+                                        <select aria-label="select" name="place_id">
+                                            @foreach($places as $place)
+                                                <option value="{{$place->id}}">{{$place->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="control is-expanded {{$errors->has('body')?'has-icons-right':''}}">
                                     <input class="input {{$errors->has('body')?'is-danger':''}}" type="text"
