@@ -4,21 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreatePlacesTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('place_id');
-            $table->string('body');
-            $table->boolean('completed')->default(false);
+            $table->string('name');
             $table->timestamps();
-
-            $table->foreign('place_id')->references('id')->on('places');
         });
     }
 
@@ -27,6 +23,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('places');
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="columns is-mobile is-centered">
+        <div class="columns is-centered">
             <div class="column is-half">
                 <div class="card">
                     <header class="card-header">
@@ -13,7 +13,16 @@
                     <div class="card-content">
                         <form method="post" action="{{url('/items')}}" class="box">
                             @csrf
-                            <div class="field  is-grouped">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <span class="select">
+                                        <select aria-label="select">
+                                            <option>asdasd</option>
+                                            <option>£qweqew</option>
+                                            <option>zcxzxc€</option>
+                                      </select>
+                                    </span>
+                                </div>
                                 <div class="control is-expanded {{$errors->has('body')?'has-icons-right':''}}">
                                     <input class="input {{$errors->has('body')?'is-danger':''}}" type="text"
                                            name="body"
