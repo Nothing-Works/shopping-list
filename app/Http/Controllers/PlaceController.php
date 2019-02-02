@@ -14,7 +14,9 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        //
+        $places = Place::all();
+
+        return view('places.index', compact('places'));
     }
 
     /**
@@ -24,62 +26,67 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        //
+        return view('places.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        Place::create($request->validate([
+            'name' => ['required', 'min:3'],
+        ]));
+
+        return redirect('/places');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Place  $place
+     * @param \App\Place $place
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Place $place)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Place  $place
+     * @param \App\Place $place
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Place $place)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Place  $place
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Place               $place
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Place $place)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Place  $place
+     * @param \App\Place $place
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Place $place)
     {
-        //
     }
 }

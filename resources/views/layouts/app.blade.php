@@ -14,20 +14,20 @@
 </head>
 
 <body>
-    <div id="app">
-        <section class="section is-marginless is-paddingless">
-            <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
-                @include('layouts.nav')
-            </nav>
-        </section>
+<div id="app">
+    <section class="section is-marginless is-paddingless">
+        <nav class="navbar is-success" role="navigation" aria-label="main navigation">
+            @include('layouts.nav')
+        </nav>
+    </section>
 
-        <main class="section">
-            @yield('content')
-        </main>
-    </div>
+    <main class="section">
+        @yield('content')
+    </main>
+</div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 
 </html>

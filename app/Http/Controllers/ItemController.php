@@ -36,7 +36,7 @@ class ItemController extends Controller
             'place_id' => 'required',
         ]));
 
-        return back();
+        return redirect('/items');
     }
 
     /**
