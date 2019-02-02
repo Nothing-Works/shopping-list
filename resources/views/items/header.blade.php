@@ -2,7 +2,7 @@
     <div class="dropdown is-hoverable">
         <div class="dropdown-trigger">
             <p class="card-header-title has-cursor-pointer">
-                All Items
+                {{Request::input('place')??'All Items'}}
                 <span class="icon is-small">
                     <i class="fas fa-angle-down" aria-hidden="true"></i>
                 </span>
@@ -10,9 +10,15 @@
         </div>
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-                <a href="#" class="dropdown-item">
-                    Dropdown item
+                <a href="{{ url('/items') }}" class="dropdown-item">
+                    All Items
                 </a>
+                <hr class="dropdown-divider">
+                @foreach ($places as $place)
+                <a href="/items?place={{$place->name}}" class="dropdown-item">
+                    {{$place->name}}
+                </a>
+                @endforeach
             </div>
         </div>
     </div>

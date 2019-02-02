@@ -15,6 +15,8 @@ class ItemController extends Controller
      */
     public function index()
     {
+        dd(request()->get('place'));
+
         $items = Item::with('place')->orderBy('id', 'desc')->get();
 
         $places = Place::all();
