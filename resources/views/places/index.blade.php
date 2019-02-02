@@ -11,11 +11,19 @@
                         </p>
                     </header>
                     <div class="card-content">
-                        <ul>
+                        <nav class="panel">
                             @foreach($places as $place)
-                                <li>{{$place->name}}</li>
+                                <a class="panel-block" href="{{url('/places/'.$place->id.'/edit')}}">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-map-pin" aria-hidden="true"></i>
+                                    </span>{{$place->name}}</a>
                             @endforeach
-                        </ul>
+                            <div class="panel-block">
+                                <a href="{{url('/places/create')}}" class="button is-link is-outlined is-fullwidth">
+                                    Add new place
+                                </a>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>

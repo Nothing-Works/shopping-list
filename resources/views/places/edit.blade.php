@@ -11,14 +11,15 @@
                         </p>
                     </header>
                     <div class="card-content">
-                        <form method="post" action="{{url('/places')}}" class="box">
+                        <form method="post" action="{{url('/places/'.$place->id)}}" class="box">
                             @csrf
+                            @method('PATCH')
                             <div class="field is-grouped">
                                 <div class="control is-expanded {{$errors->has('name')?'has-icons-right':''}}">
                                     <input class="input {{$errors->has('name')?'is-danger':''}}" type="text"
                                            name="name"
-                                           value="{{old('name')}}"
-                                           placeholder="New Place">
+                                           aria-label="edit"
+                                           value="{{old('name',$place->name)}}">
                                     @if($errors->has('name'))
                                         <span class="icon is-small is-right has-text-danger">
                                             <i class="fas fa-exclamation-triangle"></i>
@@ -27,7 +28,7 @@
                                     @endif
                                 </div>
                                 <div class="control">
-                                    <button class="button is-info" type="submit">New Place</button>
+                                    <button class="button is-info" type="submit">Edit Place</button>
                                 </div>
                             </div>
                         </form>

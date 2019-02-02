@@ -46,17 +46,6 @@ class PlaceController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param \App\Place $place
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Place $place)
-    {
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param \App\Place $place
@@ -65,6 +54,7 @@ class PlaceController extends Controller
      */
     public function edit(Place $place)
     {
+        return view('places.edit', compact('place'));
     }
 
     /**
@@ -77,6 +67,9 @@ class PlaceController extends Controller
      */
     public function update(Request $request, Place $place)
     {
+        $place->update($request->validate(['name' => ['required', 'min:3']]));
+
+        return redirect('/places');
     }
 
     /**

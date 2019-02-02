@@ -26,6 +26,7 @@
                                 <div class="control is-expanded {{$errors->has('body')?'has-icons-right':''}}">
                                     <input class="input {{$errors->has('body')?'is-danger':''}}" type="text"
                                            name="body"
+                                           value="{{old('body')}}"
                                            placeholder="add">
                                     @if($errors->has('body'))
                                         <span class="icon is-small is-right has-text-danger">
