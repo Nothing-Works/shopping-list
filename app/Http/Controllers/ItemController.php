@@ -15,13 +15,20 @@ class ItemController extends Controller
      */
     public function index()
     {
-        dd(request()->get('place'));
+        $query = Item::with('place')->orderBy('id', 'desc');
 
-        $items = Item::with('place')->orderBy('id', 'desc')->get();
+        $title = null;
+
+        if (Place::where('id', request()->input('place'))->exists()) {
+            $query->where('place_id', request()->input('place'));
+            $title = Place::where('id', request()->input('place'))->first()->name;
+        }
+
+        $items = $query->get();
 
         $places = Place::all();
 
-        return view('items.index', compact('items', 'places'));
+        return view('items.index', compact('items', 'places', 'title'));
     }
 
     /**
