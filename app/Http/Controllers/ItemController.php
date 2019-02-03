@@ -15,20 +15,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $query = Item::with('place')->orderBy('id', 'desc');
-
-        $title = null;
-
-        if (Place::where('id', request()->input('place'))->exists()) {
-            $query->where('place_id', request()->input('place'));
-            $title = Place::where('id', request()->input('place'))->first()->name;
-        }
-
-        $items = $query->get();
+        $items = $this->indexQuery(request());
 
         $places = Place::all();
 
-        return view('items.index', compact('items', 'places', 'title'));
+        return view('items.index', compact('items', 'places'));
     }
 
     /**
@@ -88,5 +79,18 @@ class ItemController extends Controller
         $deleted = $item->delete();
 
         return compact('deleted');
+    }
+
+    private function indexQuery(Request $request)
+    {
+        $key = $request->input('place');
+
+        $query = Item::with('place')->orderBy('id', 'desc');
+
+        if (Place::where('id', $key)->exists()) {
+            $query->where('place_id', $key);
+        }
+
+        return $query->get();
     }
 }
