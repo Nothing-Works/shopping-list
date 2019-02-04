@@ -17,13 +17,13 @@ Route::get('/', function () {
 });
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/items', 'ItemController@index');
+Route::get('/items/{place}/{item?}', 'ItemController@index');
 Route::post('/items', 'ItemController@store');
 Route::patch('/items/{item}', 'ItemController@update');
 Route::delete('/items/{item}', 'ItemController@destroy');
 
 Route::get('/places', 'PlaceController@index');
 Route::get('/places/create', 'PlaceController@create');
-Route::post('/places', 'PlaceController@store');
 Route::get('/places/{place}/edit', 'PlaceController@edit');
+Route::post('/places', 'PlaceController@store');
 Route::patch('/places/{place}', 'PlaceController@update');

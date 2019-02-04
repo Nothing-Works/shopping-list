@@ -13,7 +13,7 @@
                 <div class="card-content">
                     <nav class="panel">
                         @foreach($places as $place)
-                        <a class="panel-block" href="{{url('/places/'.$place->id.'/edit')}}">
+                        <a class="panel-block" href="{{url('/places/'.$place->slug.'/edit')}}">
                             <span class="panel-icon">
                                 <i class="fas fa-map-pin" aria-hidden="true"></i>
                             </span>{{$place->name}}</a>

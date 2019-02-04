@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null                      $created_at
  * @property \Illuminate\Support\Carbon|null                      $updated_at
  * @property \Illuminate\Database\Eloquent\Collection|\App\Item[] $items
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Place newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Place newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Place query()
@@ -20,13 +22,38 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Place whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Place whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
+ * @property string $slug
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Place whereSlug($value)
  */
 class Place extends Model
 {
+    use Sluggable;
+
     protected $guarded = [];
 
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ],
+        ];
     }
 }

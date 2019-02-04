@@ -11,12 +11,17 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Place $place
+     * @param Item  $item
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Place $place, ?Item $item)
     {
-        $items = $this->indexQuery(request());
-
+//        $items = $this->indexQuery(request());
+        $a = str_slug('andy,as', '-');
+        dd($a);
+        $items = $place->items()->with('place')->get();
         $places = Place::all();
 
         return view('items.index', compact('items', 'places'));
