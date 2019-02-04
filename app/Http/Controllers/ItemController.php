@@ -16,12 +16,14 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Place $place, ?Item $item)
+    public function index(Place $place = null)
     {
-//        $items = $this->indexQuery(request());
-        $a = str_slug('andy,as', '-');
-        dd($a);
-        $items = $place->items()->with('place')->get();
+        if ($place) {
+            $items = $place->items()->with('place')->latest()->get();
+        } else {
+            $items = Item::with('place')->latest()->get();
+        }
+
         $places = Place::all();
 
         return view('items.index', compact('items', 'places'));
@@ -84,18 +86,5 @@ class ItemController extends Controller
         $deleted = $item->delete();
 
         return compact('deleted');
-    }
-
-    private function indexQuery(Request $request)
-    {
-        $key = $request->input('place');
-
-        $query = Item::with('place')->orderBy('id', 'desc');
-
-        if (Place::where('id', $key)->exists()) {
-            $query->where('place_id', $key);
-        }
-
-        return $query->get();
     }
 }
