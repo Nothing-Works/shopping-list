@@ -10,21 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/items', 'ItemController@index');
-
 Route::post('/items', 'ItemController@store');
-
 Route::patch('/items/{item}', 'ItemController@update');
-
 Route::delete('/items/{item}', 'ItemController@destroy');
 
 Route::get('/places', 'PlaceController@index');
