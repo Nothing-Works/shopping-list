@@ -24,6 +24,6 @@ Route::delete('/items/{item}', 'ItemController@destroy');
 
 Route::get('/places', 'PlaceController@index');
 Route::get('/places/create', 'PlaceController@create');
-Route::get('/places/{place}/edit', 'PlaceController@edit');
+Route::get('/places/{place}', 'PlaceController@edit');
 Route::post('/places', 'PlaceController@store');
 Route::patch('/places/{place}', 'PlaceController@update');

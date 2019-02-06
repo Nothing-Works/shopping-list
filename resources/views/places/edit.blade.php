@@ -11,7 +11,7 @@
                     </p>
                 </header>
                 <div class="card-content">
-                    <form method="post" action="{{url('/places/'.$place->id)}}" class="box">
+                    <form method="post" action="{{$place->path()}}" class="box">
                         @csrf
                         @method('PATCH')
                         <div class="field is-grouped">

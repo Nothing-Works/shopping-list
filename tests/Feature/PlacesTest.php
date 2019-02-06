@@ -26,6 +26,13 @@ class PlacesTest extends TestCase
         $this->get('/places')->assertSee($attributes['slug']);
     }
 
+    public function test_a_user_can_view_a_place()
+    {
+        $place = factory('App\Place')->create();
+
+        $this->get($place->path())->assertSee($place->name);
+    }
+
     public function test_a_place_requires_a_name_min_3()
     {
         $array = [];
