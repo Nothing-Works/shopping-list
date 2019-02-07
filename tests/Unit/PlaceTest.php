@@ -2,17 +2,36 @@
 
 namespace Tests\Unit;
 
+use App\Item;
+use App\Place;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PlaceTest extends TestCase
 {
-    use RefreshDatabase;
+    /**
+     * @var Item
+     */
+    protected $item;
+
+    /**
+     * @var Place
+     */
+    protected $place;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->place = factory(Place::class)->create([]);
+        $this->item = factory(Item::class, 10)->create(['place_id' => $this->place->id]);
+    }
 
     public function test_has_a_path()
     {
-        $place = factory('App\Place')->create();
+        $this->assertEquals('/places/'.$this->place->slug, $this->place->path());
+    }
 
-        $this->assertEquals('/places/'.$place->slug, $place->path());
+    public function test_has_many_items()
+    {
+        $this->assertContainsOnlyInstancesOf(Item::class, $this->place->items);
     }
 }
