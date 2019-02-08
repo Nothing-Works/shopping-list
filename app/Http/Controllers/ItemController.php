@@ -12,7 +12,6 @@ class ItemController extends Controller
      * Display a listing of the resource.
      *
      * @param Place $place
-     * @param Item  $item
      *
      * @return \Illuminate\Http\Response
      */

@@ -13,7 +13,7 @@
         "@fortawesome/fontawesome-free": "^5.7.1",
         "animate.css": "^3.7.0",
         "axios": "^0.18.0",
-        "bulma": "^0.7.2",
+        "bulma": "^0.7.3",
         "bulma-checkradio": "^2.1.0",
         "bulma-helpers": "^0.3.6",
         "cross-env": "^5.2.0",

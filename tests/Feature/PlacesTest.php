@@ -31,14 +31,6 @@ class PlacesTest extends TestCase
 
     public function test_a_place_requires_a_name_min_3()
     {
-        $array = [];
-        for ($i = 0; $i < 3; ++$i) {
-            $place = factory('App\Place')->raw(['name' => $i]);
-            $array[$i] = $place;
-        }
-
-        foreach ($array as $attribute) {
-            $this->post('/places', $attribute)->assertSessionHasErrors('name');
-        }
+        $this->post('/places', factory('App\Place')->raw(['name' => null]))->assertSessionHasErrors('name');
     }
 }
