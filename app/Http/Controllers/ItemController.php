@@ -15,17 +15,11 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Place $place = null)
+    public function index(Place $place)
     {
-        if ($place) {
-            $items = $place->items()->with('place')->latest()->get();
-        } else {
-            $items = Item::with('place')->latest()->get();
-        }
+        $items = $this->getItems($place);
 
-        $places = Place::all();
-
-        return view('items.index', compact('items', 'places'));
+        return view('items.index', compact('items'));
     }
 
     /**
@@ -62,7 +56,7 @@ class ItemController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Item                $item
      *
-     * @return Item|null
+     * @return null|Item
      */
     public function update(Request $request, Item $item)
     {
@@ -76,14 +70,30 @@ class ItemController extends Controller
      *
      * @param \App\Item $item
      *
-     * @return \Illuminate\Http\Response
-     *
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Item $item)
     {
         $deleted = $item->delete();
 
         return compact('deleted');
+    }
+
+    /**
+     * @param Place $place
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Item|Item[]
+     */
+    protected function getItems(Place $place)
+    {
+        $items = Item::with('place')->latest();
+
+        if ($place->exists) {
+            $items = $items->where('place_id', $place->id);
+        }
+
+        return $items->get();
     }
 }
