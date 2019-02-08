@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ItemFilters;
 use App\Item;
 use App\Place;
 use Illuminate\Http\Request;
@@ -11,13 +12,14 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Place $place
+     * @param Place       $place
+     * @param ItemFilters $filters
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Place $place)
+    public function index(Place $place, ItemFilters $filters)
     {
-        $items = $this->getItems($place);
+        $items = $this->getItems($place, $filters);
 
         return view('items.index', compact('items'));
     }
@@ -56,7 +58,7 @@ class ItemController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Item                $item
      *
-     * @return null|Item
+     * @return Item|null
      */
     public function update(Request $request, Item $item)
     {
@@ -82,16 +84,17 @@ class ItemController extends Controller
     }
 
     /**
-     * @param Place $place
+     * @param Place       $place
+     * @param ItemFilters $filters
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Item|Item[]
+     * @return Item|Item[]|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    protected function getItems(Place $place)
+    protected function getItems(Place $place, ItemFilters $filters)
     {
-        $items = Item::with('place')->latest();
+        $items = Item::with('place')->latest()->filter($filters);
 
         if ($place->exists) {
-            $items = $items->where('place_id', $place->id);
+            $items->where('place_id', $place->id);
         }
 
         return $items->get();

@@ -6,6 +6,10 @@ use App\Item;
 use App\Place;
 use Tests\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PlaceTest extends TestCase
 {
     /**
@@ -25,12 +29,12 @@ class PlaceTest extends TestCase
         $this->item = factory(Item::class, 10)->create(['place_id' => $this->place->id]);
     }
 
-    public function test_has_a_path()
+    public function testHasAPath()
     {
         $this->assertEquals('/places/'.$this->place->slug, $this->place->path());
     }
 
-    public function test_has_many_items()
+    public function testHasManyItems()
     {
         $this->assertContainsOnlyInstancesOf(Item::class, $this->place->items);
     }

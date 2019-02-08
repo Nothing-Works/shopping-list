@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Filters\ItemFilters;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,9 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Item whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Item whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Item whereUpdatedAt($value)
- * @property int $place_id
- * @property-read \App\Place $place
+ * @property int        $place_id
+ * @property \App\Place $place
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Item wherePlaceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Item filter($filters)
  */
 class Item extends Model
 {
@@ -37,5 +39,16 @@ class Item extends Model
     public function place()
     {
         return $this->belongsTo(Place::class);
+    }
+
+    /**
+     * @param $query
+     * @param ItemFilters $filters
+     *
+     * @return mixed
+     */
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
     }
 }

@@ -6,6 +6,10 @@ use App\Item;
 use App\Place;
 use Tests\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class ItemTest extends TestCase
 {
     /**
@@ -26,12 +30,12 @@ class ItemTest extends TestCase
         $this->item = factory(Item::class)->create(['place_id' => $this->place->id]);
     }
 
-    public function test_it_has_a_place()
+    public function testItHasAPlace()
     {
         $this->assertInstanceOf(Place::class, $this->item->place);
     }
 
-    public function test_it_can_toggle_completed_true()
+    public function testItCanToggleCompletedTrue()
     {
         $this->item->completed = true;
 
@@ -42,7 +46,7 @@ class ItemTest extends TestCase
         $this->assertDatabaseHas('items', $attribute);
     }
 
-    public function test_it_can_toggle_completed_false()
+    public function testItCanToggleCompletedFalse()
     {
         $attribute = $this->item->toArray();
 
